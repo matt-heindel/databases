@@ -9,31 +9,32 @@ var dbConnection = mysql.createConnection({
 
 module.exports.insert = function(username, callback) {
   dbConnection.connect();
-
-  var insertQuery = `INSERT INTO users(username) VALUES(${username})`;
+  console.log('inside database user name =', username);
+  var insertQuery = `INSERT INTO users(username) VALUES('${username}')`;
 
   // define callback to handle after inserting
   var insertCallback = function(err, result) {
     if (err) {
-      throw err;
+      callback(err);
     } else {
-      var selectQuery = `SELECT user_id FROM users WHERE username = ${username}`;
-      // look up username to get user_id
-      dbConnection.query(selectQuery, (err, user_id) => {
-        if (err) {
-          throw err;
-        } else {
-          callback(null, user_id);
-        }
-      });
+      callback(null);
     }
   };
 
-
-  // send insert query to database
   dbConnection.query(insertQuery, insertCallback);
-
   dbConnection.end();
+
+  // var selectQuery = `SELECT user_id FROM users WHERE username = ${username}`;
+  // // look up username to get user_id
+  // dbConnection.query(selectQuery, (err, user_id) => {
+  //   if (err) {
+  //     throw err;
+  //   } else {
+  //     callback(null, user_id);
+  //   }
+  // });
+  // send insert query to database
+
 };
 
 
