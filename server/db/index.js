@@ -8,6 +8,8 @@ var dbConnection = mysql.createConnection({
 });
 dbConnection.connect();
 
+module.exports.dbConnection = dbConnection;
+
 module.exports.insertMessage = function (reqBody, callback) {
   var username = reqBody.username;
   var message = reqBody.message;
