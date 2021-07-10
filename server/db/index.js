@@ -7,7 +7,19 @@ var dbConnection = mysql.createConnection({
   database: 'chat'
 });
 
-module.exports.insert = function(username, callback) {
+module.exports.insertMessage = function (reqBody, callback) {
+  var username = reqBody.username;
+  var message = reqBody.message;
+  var roomname = reqBody.roomname;
+  //start db connect
+  var insertQuery = `INSERT INTO messages(username, text, roomname) VALUES('${username}', '${message}', '${roomname}')`;
+  //define the callback
+  //excute the query
+  //end db connect
+
+};
+
+module.exports.insertUser = function(username, callback) {
   dbConnection.connect();
   console.log('inside database user name =', username);
   var insertQuery = `INSERT INTO users(username) VALUES('${username}')`;
