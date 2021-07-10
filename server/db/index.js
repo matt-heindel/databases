@@ -6,15 +6,17 @@ var dbConnection = mysql.createConnection({
   password: '',
   database: 'chat'
 });
+dbConnection.connect();
 
 module.exports.insertMessage = function (reqBody, callback) {
   var username = reqBody.username;
   var message = reqBody.message;
   var roomname = reqBody.roomname;
 
-  // dbConnection.connect();
 
-  var insertQuery = `INSERT INTO messages(username, text, roomname) VALUES('${username}', '${message}', '${roomname}')`;
+  // var insertQuery = `INSERT INTO messages(username, text, roomname) VALUES('${username}', '${message}', '${roomname}')`;
+  var insertQuery = 'INSERT INTO messages(username, text, roomname) VALUES(?, ?, ?)';
+  var insertArgs = [username, message, roomname];
   //define the callback
   var insertCallback = function(err, result) {
     // dbConnection.end();
@@ -27,17 +29,17 @@ module.exports.insertMessage = function (reqBody, callback) {
   };
 
   //excute the query
-  dbConnection.query(insertQuery, insertCallback);
+  dbConnection.query(insertQuery, insertArgs, insertCallback);
 };
 
 module.exports.insertUser = function(username, callback) {
-  dbConnection.connect();
+  // dbConnection.connect();
   console.log('inside database user name =', username);
   var insertQuery = `INSERT INTO users(username) VALUES('${username}')`;
 
   // define callback to handle after inserting
   var insertCallback = function(err, result) {
-    dbConnection.end();
+    // dbConnection.end();
     if (err) {
       callback(err);
     } else {
