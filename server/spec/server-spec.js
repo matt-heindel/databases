@@ -51,7 +51,7 @@ describe('Persistent Node Chat Server', function () {
                 var queryString = 'SELECT * FROM messages';
                 var queryArgs = [];
 
-                dbConnection.query(queryString, queryArgs, function (err, results) {
+                dbConnection.query(queryString, function (err, results) {
                   if (err) {
                     throw err;
                   } else {

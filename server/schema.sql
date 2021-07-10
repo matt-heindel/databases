@@ -17,17 +17,20 @@ CREATE TABLE messages (
   /* Describe your table here.*/
   message_id integer NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (message_id),
+  username varchar(100),
   text varchar(255),
-  user_id integer,
-  FOREIGN KEY(user_id) REFERENCES users(user_id),
-  room_id integer,
-  FOREIGN KEY(room_id) REFERENCES rooms(room_id),
-  created_at timestamp,
-  updated_at datetime
+  roomname varchar(100)
 );
 
 /* Create other tables and define schemas for them here! */
 
+-- FORIEGN KEYS for messages table not MVP
+  -- user_id integer,
+  -- FOREIGN KEY(user_id) REFERENCES users(user_id),
+  -- room_id integer,
+  -- FOREIGN KEY(room_id) REFERENCES rooms(room_id),
+  -- created_at timestamp,
+  -- updated_at datetime
 
 
 

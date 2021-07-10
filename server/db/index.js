@@ -11,12 +11,23 @@ module.exports.insertMessage = function (reqBody, callback) {
   var username = reqBody.username;
   var message = reqBody.message;
   var roomname = reqBody.roomname;
-  //start db connect
+
+  // dbConnection.connect();
+
   var insertQuery = `INSERT INTO messages(username, text, roomname) VALUES('${username}', '${message}', '${roomname}')`;
   //define the callback
-  //excute the query
-  //end db connect
+  var insertCallback = function(err, result) {
+    // dbConnection.end();
+    if (err) {
+      console.log(err);
+      callback(err);
+    } else {
+      callback(null);
+    }
+  };
 
+  //excute the query
+  dbConnection.query(insertQuery, insertCallback);
 };
 
 module.exports.insertUser = function(username, callback) {
@@ -26,6 +37,7 @@ module.exports.insertUser = function(username, callback) {
 
   // define callback to handle after inserting
   var insertCallback = function(err, result) {
+    dbConnection.end();
     if (err) {
       callback(err);
     } else {
@@ -34,7 +46,6 @@ module.exports.insertUser = function(username, callback) {
   };
 
   dbConnection.query(insertQuery, insertCallback);
-  dbConnection.end();
 
   // var selectQuery = `SELECT user_id FROM users WHERE username = ${username}`;
   // // look up username to get user_id
