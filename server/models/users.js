@@ -6,7 +6,7 @@ module.exports = {
   },
   create: function (username, callback) {
 
-    db.insert(username, (err) => {
+    db.insertUser(username, (err) => {
       if (err) {
         callback(err);
       } else {
